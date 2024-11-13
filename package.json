@@ -1,0 +1,16 @@
+{
+  "name": "miditoosc",
+  "version": "1.0.0",
+  "description": "get keyboard midi data, transmit over OSC",
+  "main": "index.node.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "don undeen",
+  "license": "CC0-1.0",
+  "dependencies": {
+    "easymidi": "^3.1.0",
+    "midi": "^2.0.0",
+    "osc": "^2.4.5"
+  }
+}

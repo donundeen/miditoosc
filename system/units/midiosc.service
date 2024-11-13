@@ -1,0 +1,14 @@
+[Unit]
+Description=service to run the pikioskwebpage web app
+Documentation=https://github.com/donundeen/pikioskwebpage
+After=network.target
+
+[Service]
+Type=simple
+PIDFile=/var/run/pikioskwebpage.pid
+Restart=on-failure
+RestartSec=4
+ExecStart=/home/pi/pikioskwebpage/system/runpikioskwebpage.sh
+
+[Install]
+WantedBy=default.target
