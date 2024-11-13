@@ -8,7 +8,7 @@ Type=simple
 PIDFile=/var/run/miditoosc.pid
 Restart=on-failure
 RestartSec=4
-ExecStart=/home/pi/midiosc/system/runmiditoosc.sh
+ExecStart=/home/pi/miditoosc/system/runmiditoosc.sh
 
 [Install]
 WantedBy=default.target
