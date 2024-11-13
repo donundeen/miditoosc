@@ -28,6 +28,10 @@ let midi_keys_portname = "APC Key 25 mk2 Keys";
 let midi_control_portname = "APC Key 25 mk2 Control";
 */
 
+let ccvalues = {};// some CC values are continuous rotation, but only send values 1/2 and 126/127. in which case we want to track a value that can go up/down continuously
+let ccmin = 0;
+let ccmax = 1023;
+
 let eventtypes = [
     "noteon",	
     "noteoff",
@@ -54,10 +58,36 @@ checkForNewPorts();
 setInterval(checkForNewPorts, 5000);
 
 
+
+function processCC(portname, event, params){
+    console.log("processCC", params);
+    let cnum = params.controller;
+    let value = params.value;
+    if(!ccvalues[cnum]){
+        ccvalues[cnum] = ccmin;
+    }
+    if(value < 127 / 2 ){
+        ccvalues[cnum]++;
+    }
+    if(value > 127 / 2 ){
+        ccvalues[cnum]--;
+    }
+    if(ccvalues[cnum] > ccmax){
+        ccvalues[cnum] = ccmin;
+    }
+    if(ccvalues[cnum] < ccmin){
+        ccvalues[cnum] = ccmax;
+    }
+
+    params.ccvalue = params.value;
+    params.value = ccvalues[cnum];
+}
+
+
 function checkForNewPorts(){
 
     let new_inputs = easymidi.getInputs();
-    console.log(new_inputs);
+    //console.log(new_inputs);
     for(const portname of new_inputs){
         if(!midi_ins.includes(portname)){
             console.log("add port ", portname);
@@ -74,6 +104,11 @@ function addPort(portname){
     let input = new easymidi.Input(portname); 
     for(const event of eventtypes){
         input.on(event, function(params){
+
+            if(event == "cc"){
+                processCC(portname, event, params);
+            }
+
             console.log(portname,  event, params);
             let data = {
                 portname : portname,
