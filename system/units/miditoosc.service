@@ -1,14 +1,14 @@
 [Unit]
 Description=service to run the midiosc app
-Documentation=https://github.com/donundeen/midiosc
+Documentation=https://github.com/donundeen/miditoosc
 After=network.target
 
 [Service]
 Type=simple
-PIDFile=/var/run/midiosc.pid
+PIDFile=/var/run/miditoosc.pid
 Restart=on-failure
 RestartSec=4
-ExecStart=/home/pi/midiosc/system/runmidiosc.sh
+ExecStart=/home/pi/midiosc/system/runmiditoosc.sh
 
 [Install]
 WantedBy=default.target
