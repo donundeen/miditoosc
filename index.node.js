@@ -23,11 +23,10 @@ let midi_keys= false;
 let midi_control= false;
 
 let midi_ins = [];
-
+/*
 let midi_keys_portname = "APC Key 25 mk2 Keys";
 let midi_control_portname = "APC Key 25 mk2 Control";
-
-let midi_outputs = easymidi.getInputs();
+*/
 
 let eventtypes = [
     "noteon",	
@@ -51,10 +50,27 @@ let eventtypes = [
 ];
 
 
+checkForNewPorts();
+setInterval(checkForNewPorts, 5000);
 
-midi_inputs = easymidi.getInputs();
-console.log(midi_inputs);
-for(const portname of midi_inputs){
+
+function checkForNewPorts(){
+
+    let new_inputs = easymidi.getInputs();
+    console.log(new_inputs);
+    for(const portname of new_inputs){
+        if(!midi_ins.includes(portname)){
+            console.log("add port ", portname);
+            addPort(portname);
+            midi_ins.push(portname);
+        }            
+    }
+}
+
+
+
+
+function addPort(portname){
     let input = new easymidi.Input(portname); 
     for(const event of eventtypes){
         input.on(event, function(params){
@@ -90,6 +106,7 @@ for(const portname of midi_inputs){
         });    
     }    
 }
+
 
 
 /*
