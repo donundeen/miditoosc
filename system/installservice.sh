@@ -1,5 +1,5 @@
 #!/bin/bash
 
-cp /home/pi/pikioskwebpage/system/units/pikioskwebpage.service /lib/systemd/user/
+cp /home/pi/midiosc/system/units/midiosc.service /lib/systemd/user/
 systemctl daemon-reload
-systemctl --user enable pikioskwebpage.service 
+systemctl --user enable midiosc.service 

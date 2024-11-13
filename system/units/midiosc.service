@@ -1,14 +1,14 @@
 [Unit]
-Description=service to run the pikioskwebpage web app
-Documentation=https://github.com/donundeen/pikioskwebpage
+Description=service to run the midiosc app
+Documentation=https://github.com/donundeen/midiosc
 After=network.target
 
 [Service]
 Type=simple
-PIDFile=/var/run/pikioskwebpage.pid
+PIDFile=/var/run/midiosc.pid
 Restart=on-failure
 RestartSec=4
-ExecStart=/home/pi/pikioskwebpage/system/runpikioskwebpage.sh
+ExecStart=/home/pi/midiosc/system/runmidiosc.sh
 
 [Install]
 WantedBy=default.target
